@@ -17,13 +17,20 @@
 import './commands'
 import './routes'
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+import { Keypair } from '@solana/web3.js'
+import { PhantomWalletMock } from 'phan-wallet-mock'
 
-before(() => {
-   // Cypress commands you would like to run (once) at the start of each test run.
-})
+const initFakeProvider = (win) => {
+  const payer = Keypair.generate()
+  const LOCALNET = 'http://127.0.0.1:8899'
+  const wallet = PhantomWalletMock.create(LOCALNET, payer, 'confirmed')
+  win.solana = wallet
+}
+Cypress.on('window:before:load', initFakeProvider)
+
+before(() => {})
 
 beforeEach(() => {
-    // Cypress commands you would like to run before every single Cypress test.
+  // Cypress commands you would like to run before every single Cypress test.
 })
+
