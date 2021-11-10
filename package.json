@@ -9,7 +9,8 @@
   "scripts": {
     "build": "react-scripts build",
     "start": "PORT=3001 react-scripts start",
-    "cypress": "cypress run",
+    "cypress": "cypress run --headed",
+    "cypress:headless": "cypress run",
     "cypress:open": "cypress open",
     "lint": "prettier -c ./src/",
     "lint:fix": "prettier --format ./src"
@@ -28,6 +29,7 @@
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
     "cypress": "^8.7.0",
+    "phan-wallet-mock": "^0.0.2",
     "react-scripts": "^4.0.3",
     "typescript": "^4.4.4"
   },
