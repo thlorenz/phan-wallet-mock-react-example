@@ -1,42 +1,13 @@
 import { useState, useEffect } from 'react'
 import {
   Connection,
-  PublicKey,
   Transaction,
   clusterApiUrl,
   SystemProgram,
 } from '@solana/web3.js'
 import './styles.css'
 
-type DisplayEncoding = 'utf8' | 'hex'
-type PhantomEvent = 'disconnect' | 'connect'
-type PhantomRequestMethod =
-  | 'connect'
-  | 'disconnect'
-  | 'signTransaction'
-  | 'signAllTransactions'
-  | 'signMessage'
-
-interface ConnectOpts {
-  onlyIfTrusted: boolean
-}
-
-interface PhantomProvider {
-  publicKey: PublicKey | null
-  isConnected: boolean | null
-  signTransaction: (transaction: Transaction) => Promise<Transaction>
-  signAllTransactions: (transactions: Transaction[]) => Promise<Transaction[]>
-  signMessage: (
-    message: Uint8Array | string,
-    display?: DisplayEncoding
-  ) => Promise<any>
-  connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>
-  disconnect: () => Promise<void>
-  on: (event: PhantomEvent, handler: (args: any) => void) => void
-  request: (method: PhantomRequestMethod, params: any) => Promise<unknown>
-}
-
-const getProvider = (): PhantomProvider | undefined => {
+const getProvider = (): any | undefined => {
   if ('solana' in window) {
     const anyWindow: any = window
     const provider = anyWindow.solana
