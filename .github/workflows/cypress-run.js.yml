@@ -1,0 +1,29 @@
+name: Run Cypress Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
+    # Cypress Docker image with Chrome v91
+    # and Firefox v89 pre-installed
+    container: cypress/browsers:node14.17.0-chrome91-ff89
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: tests/cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: cypress-videos
+          path: tests/cypress/videos

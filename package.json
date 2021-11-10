@@ -1,0 +1,51 @@
+{
+  "name": "phan-wallet-mock-react-example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "start": "PORT=3001 react-scripts start",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open",
+    "lint": "prettier -c ./src/",
+    "lint:fix": "prettier --format ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "Thorsten Lorenz <thlorenz@gmx.de>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@types/react": "^17.0.34",
+    "@types/react-dom": "^17.0.11",
+    "cypress": "^8.7.0",
+    "react-scripts": "^4.0.3",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.30.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
