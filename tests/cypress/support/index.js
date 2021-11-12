@@ -18,19 +18,14 @@ import './commands'
 import './routes'
 
 import { Keypair } from '@solana/web3.js'
-import { PhantomWalletMock } from 'phan-wallet-mock'
+import { initWalletMockProvider, PhantomWalletMock } from 'phan-wallet-mock'
 
-const initFakeProvider = (win) => {
-  const payer = Keypair.generate()
-  const LOCALNET = 'http://127.0.0.1:8899'
-  const wallet = PhantomWalletMock.create(LOCALNET, payer, 'confirmed')
-  win.solana = wallet
-}
-Cypress.on('window:before:load', initFakeProvider)
+Cypress.on('window:before:load', (win) => {
+  initWalletMockProvider(win)
+})
 
 before(() => {})
 
 beforeEach(() => {
   // Cypress commands you would like to run before every single Cypress test.
 })
-

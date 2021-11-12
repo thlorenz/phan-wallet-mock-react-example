@@ -6,7 +6,6 @@ import {
   Commitment,
 } from '@solana/web3.js'
 import './styles.css'
-import { PhantomWalletMock } from 'phan-wallet-mock'
 
 const getProvider = (): any | undefined => {
   if ('solana' in window) {
@@ -23,9 +22,8 @@ type Props = {
   connectionURL: string
 } & {
   commitment: Commitment | undefined
-} & {
-  wallet: PhantomWalletMock
 }
+
 export default function App({ connectionURL, commitment }: Props) {
   const provider = getProvider()
   const [logs, setLogs] = useState<string[]>([])
