@@ -7,7 +7,14 @@ const IS_CONNECTED = 'isConnected: true'
 const IS_NOT_CONNECTED = 'isConnected: false'
 const CONNECTED_TO_WALLET = 'Connected to wallet'
 
+// const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+const publicKeyPat = '[1-9a-z]{44}'
+
+import spok from 'spok'
+const t = spok.adapters.chaiExpect(expect)
+
 let wallet
+let clearLog
 before(() => {
   cy.visit('/')
   // NOTE: the phan-wallet-mock is injected inside
@@ -16,6 +23,8 @@ before(() => {
   cy.window()
     .then((win) => {
       wallet = win.solana
+      clearLog = () =>
+        (win.document.getElementsByClassName('logs').item(0).innerHTML = '')
     })
     // Setup wallet owner with some cash
     .then(() => wallet.connect())
@@ -39,15 +48,55 @@ describe('Loads valid Page and Connects to Wallet', () => {
 
 describe('Sending transaction', () => {
   before(() => {
+    clearLog()
     cy.contains('button', SEND_TX).click()
   })
   it('Sends Transaction and logs confirmation', () => {
     cy.contains('.log', /Transaction \S+ confirmed/)
   })
+  it('adds transaction to the ledger', async () => {
+    const { meta } = await wallet.getLastConfirmedTransaction()
+    spok(t, meta, {
+      $topic: 'transaction.meta',
+      err: null,
+      fee: 5000,
+      status: {
+        Ok: null,
+      },
+    })
+  })
+})
+describe('Sign all Transactions (single)', () => {
+  before(() => {
+    clearLog()
+    cy.contains('button', SIGN_ALL_TXS_SING).click()
+  })
+  it('Signs single transaction and logs confirmation', () => {
+    cy.contains(
+      '.log',
+      new RegExp(`^Signed Transactions Keys: \\[ ${publicKeyPat} ]`, 'i')
+    )
+  })
 })
 
+describe('Sign all Transactions (multiple)', () => {
+  before(() => {
+    clearLog()
+    cy.contains('button', SIGN_ALL_TXS_MULT).click()
+  })
+  it('Signs single transaction and logs confirmation', () => {
+    cy.contains(
+      '.log',
+      new RegExp(
+        `^Signed Transactions Keys: \\[ ${publicKeyPat},${publicKeyPat} ]`,
+        'i'
+      )
+    )
+  })
+})
 describe('UI: Signing Message', () => {
   before(() => {
+    clearLog()
     cy.contains('button', SIGN_MSG).click()
   })
   it('Signs Message and logs confirmation', () => {

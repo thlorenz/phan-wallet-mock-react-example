@@ -96,20 +96,25 @@ export default function App({ connectionURL, commitment }: Props) {
       createTransferTransaction(),
     ])
     if (transaction1 && transaction2) {
-      let signature
+      let signatures
       try {
         if (onlyFirst) {
-          signature = await provider.signAllTransactions([transaction1])
+          signatures = await provider.signAllTransactions([transaction1])
         } else {
-          signature = await provider.signAllTransactions([
+          signatures = await provider.signAllTransactions([
             transaction1,
             transaction2,
           ])
         }
       } catch (err) {
-        addLog('Error: ' + JSON.stringify(err))
+        const anyerr: any = err
+        addLog(`Error: ${anyerr.message}`)
+        console.warn(err)
       }
-      addLog('Signature ' + signature)
+      const log = signatures.map((x: Transaction) =>
+        x.signatures[0].publicKey.toBase58()
+      )
+      addLog(`Signed Transactions Keys: [ ${log} ]`)
     }
   }
   const signMessage = async (message: string) => {
