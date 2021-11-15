@@ -12,9 +12,17 @@ jobs:
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v1
+
+      - name: Install modules
+        run: yarn install
+
+      - name: Run Page
+        run: yarn start
+
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
+
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
