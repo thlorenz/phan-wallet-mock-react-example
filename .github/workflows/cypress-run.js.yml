@@ -2,15 +2,13 @@ name: Run Cypress Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
-    # Cypress Docker image with Chrome v91
-    # and Firefox v89 pre-installed
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v1
