@@ -1204,13 +1204,6 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@bahmutov/spok@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@bahmutov/spok/-/spok-1.2.0.tgz#0d72d4ec584402adca7ce762609b868faf8c7aac"
-  integrity sha512-EBZ968EAEE0oQ2eba9OyXMixtpxt3tQrSo2u8uZL4gCJF78fEvZlpHCqv24PdGLvBUpY0ceFUng2brrQM7tw3g==
-  dependencies:
-    ansicolors "~0.3.2"
-
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -4219,14 +4212,6 @@ csstype@^3.0.2:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
   integrity sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==
-
-cy-spok@^1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/cy-spok/-/cy-spok-1.3.4.tgz#bcf0e0d0e2a215d0e16924e64bfc1e5529927765"
-  integrity sha512-n2V6PeERpXKLEDbi8bHY7i9gNTOqWETQBJzOThEdZcHuIjU6lpdVBJ8DXoY3U6bLI64r02ox45f49NcWGrkU9A==
-  dependencies:
-    "@bahmutov/spok" "1.2.0"
-    strip-ansi "6.0.1"
 
 cyclist@^1.0.1:
   version "1.0.1"
@@ -8674,10 +8659,10 @@ performance-now@^2.1.0:
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
-phan-wallet-mock@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/phan-wallet-mock/-/phan-wallet-mock-0.0.2.tgz#11b60eb46233ec1632443e773c8d29f6baaf9c53"
-  integrity sha512-37vWJB6zt/57Vpe6foy1ehlrK2hmVarU9MfDj3Y3Xjmd+L49eLiwjeMfm0EaaYCiQlpM4X2jwHCm9a/31ojT2Q==
+phan-wallet-mock@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/phan-wallet-mock/-/phan-wallet-mock-0.0.3.tgz#375066b545d56a01b46472e08eddba7dd7156c0e"
+  integrity sha512-l6eyMuEW8H9Yr0iYL2/Y3lnW5NroAJLfHCHH28rDceYKIGtWoZzNHfu3xhSc5+t4AG9BxqA46k4bkE7Jvggzkg==
   dependencies:
     "@solana/wallet-adapter-base" "^0.7.0"
     "@solana/web3.js" "^1.30.2"
@@ -10955,13 +10940,6 @@ strip-ansi@6.0.0:
   dependencies:
     ansi-regex "^5.0.0"
 
-strip-ansi@6.0.1, strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
-  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
-  dependencies:
-    ansi-regex "^5.0.1"
-
 strip-ansi@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
@@ -10975,6 +10953,13 @@ strip-ansi@^5.0.0, strip-ansi@^5.1.0, strip-ansi@^5.2.0:
   integrity sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==
   dependencies:
     ansi-regex "^4.1.0"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
 
 strip-bom@^3.0.0:
   version "3.0.0"
