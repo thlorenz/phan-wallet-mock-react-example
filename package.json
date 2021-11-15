@@ -9,6 +9,7 @@
   "scripts": {
     "build": "react-scripts build",
     "start": "PORT=3001 react-scripts start",
+    "test": "run-p --race start cypress",
     "cypress": "cypress run",
     "cypress:headed": "cypress run --headed",
     "cypress:open": "cypress open",
@@ -29,6 +30,7 @@
     "@types/react": "^17.0.34",
     "@types/react-dom": "^17.0.11",
     "cypress": "^8.7.0",
+    "npm-run-all": "^4.1.5",
     "phan-wallet-mock": "^0.0.3",
     "react-scripts": "^4.0.3",
     "spok": "^1.4.0",
