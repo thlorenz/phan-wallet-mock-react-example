@@ -21,12 +21,18 @@ jobs:
       - name: Install modules
         run: yarn install
 
-      - name: Run Page
-        run: yarn start &
+      - name: Cache Cypress binary
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-
 
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
+          start: yarn start
 
       - uses: actions/upload-artifact@v1
         if: failure()
