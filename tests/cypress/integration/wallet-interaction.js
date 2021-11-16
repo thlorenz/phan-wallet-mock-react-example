@@ -8,7 +8,7 @@ const IS_NOT_CONNECTED = 'isConnected: false'
 const CONNECTED_TO_WALLET = 'Connected to wallet'
 
 // const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-const publicKeyPat = '[1-9a-z]{44}'
+const publicKeyPat = '[1-9a-z]{32,44}'
 
 import spok from 'spok'
 const t = spok.adapters.chaiExpect(expect)
