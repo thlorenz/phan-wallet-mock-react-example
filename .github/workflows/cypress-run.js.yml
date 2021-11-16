@@ -2,21 +2,50 @@ name: Run Cypress Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
+
+env:
+  SOLANA_VERSION: 1.8.2
 
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
-    # Cypress Docker image with Chrome v91
-    # and Firefox v89 pre-installed
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v1
+
+      - uses: ./.github/actions/install-solana
+        with: 
+          solana_version: ${{ env.SOLANA_VERSION }}
+
+      - uses: actions/cache@v2
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install modules
+        run: yarn install
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-
+
+      - name: Launch local Validator
+        run: |
+          solana-test-validator -r > /dev/null &
+          sleep 2 
+
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
+          start: yarn start
+
       - uses: actions/upload-artifact@v1
         if: failure()
         with:

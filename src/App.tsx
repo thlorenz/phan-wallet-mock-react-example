@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import {
-  Connection,
   Transaction,
-  clusterApiUrl,
   SystemProgram,
+  Connection,
+  Commitment,
 } from '@solana/web3.js'
 import './styles.css'
 
@@ -18,17 +18,21 @@ const getProvider = (): any | undefined => {
   window.open('https://phantom.app/', '_blank')
 }
 
-const NETWORK = clusterApiUrl('mainnet-beta')
+type Props = {
+  connectionURL: string
+} & {
+  commitment: Commitment | undefined
+}
 
-export default function App() {
+export default function App({ connectionURL, commitment }: Props) {
   const provider = getProvider()
   const [logs, setLogs] = useState<string[]>([])
   const addLog = (log: string) => setLogs([...logs, log])
-  const connection = new Connection(NETWORK)
+  const connection: Connection = new Connection(connectionURL, commitment)
   const [, setConnected] = useState<boolean>(false)
   useEffect(() => {
     if (provider) {
-      provider.on('connect', () => {
+      provider.on('connect', async () => {
         setConnected(true)
         addLog('Connected to wallet ' + provider.publicKey?.toBase58())
       })
@@ -80,8 +84,9 @@ export default function App() {
         await connection.confirmTransaction(signature)
         addLog('Transaction ' + signature + ' confirmed')
       } catch (err) {
+        const anyerr: any = err
+        addLog(`Error: ${anyerr.message}`)
         console.warn(err)
-        addLog('Error: ' + JSON.stringify(err))
       }
     }
   }
@@ -91,32 +96,42 @@ export default function App() {
       createTransferTransaction(),
     ])
     if (transaction1 && transaction2) {
-      let signature
+      let signatures
       try {
         if (onlyFirst) {
-          signature = await provider.signAllTransactions([transaction1])
+          signatures = await provider.signAllTransactions([transaction1])
         } else {
-          signature = await provider.signAllTransactions([
+          signatures = await provider.signAllTransactions([
             transaction1,
             transaction2,
           ])
         }
       } catch (err) {
+        const anyerr: any = err
+        addLog(`Error: ${anyerr.message}`)
         console.warn(err)
-        addLog('Error: ' + JSON.stringify(err))
       }
-      addLog('Signature ' + signature)
+      const log = signatures.map((x: Transaction) =>
+        x.signatures[0].publicKey.toBase58()
+      )
+      addLog(`Signed Transactions Keys: [ ${log} ]`)
     }
   }
   const signMessage = async (message: string) => {
     const data = new TextEncoder().encode(message)
     try {
-      await provider.signMessage(data)
+      const sig = await provider.signMessage(data)
+      console.log(sig)
+      addLog(
+        `Message signed (signature len: ${
+          sig.signature.length
+        }), publicKey ${sig.publicKey.toBase58()}`
+      )
     } catch (err) {
-      console.warn(err)
-      addLog('Error: ' + JSON.stringify(err))
+      console.error(err)
+      const anyerr: any = err
+      addLog(`Error: ${anyerr.message}`)
     }
-    addLog('Message signed')
   }
   return (
     <div className="App">
